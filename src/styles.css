@@ -44,8 +44,8 @@ h1 {
   color: #7159c1;
 }
 
-input {
-  width: 520px;
+form input {
+  width: 100%;
   padding: 8px 15px;
   border: 1px;
   border-color: #dcdce6;
@@ -60,6 +60,22 @@ input:hover {
   box-shadow: 0px 0px 5px 0px rgba(42,42,42,.5);
 }
 
+form {
+  padding: 20px;
+  width: 100%;
+  background: #f0f0f5;
+  border-radius: 8px;
+} 
+
+form .inputgroup {
+  margin: 10px 0px;
+  justify-content: space-between;
+}
+
+form .inputgroup input + input {
+  display: flex;
+  margin-left: 8px;
+}
 
 button {
   width: 100%;
@@ -68,7 +84,7 @@ button {
   color: #fff;
   border: 0;
   padding: 10px 15px;
-  margin: 0 15px;
+  margin-left: 10px;
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
@@ -79,7 +95,7 @@ button {
 div {
   width: 100%;
   max-width: 1120px;
-  height: 100vh;
+  /*height: 100vh;*/
   margin: 0 auto;
   display: flex;
   align-self: flex-start;
@@ -110,7 +126,7 @@ div li button {
 }
 
 
-div li button:hover {
+div button:hover {
   opacity: 0.8;
 }
 

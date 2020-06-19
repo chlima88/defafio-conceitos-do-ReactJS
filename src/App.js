@@ -5,7 +5,10 @@ import api from './services/api';
 import "./styles.css";
 
 function App() {
-  
+
+  const [title, setTitle] = useState('');
+  const [techs, setTechs] = useState([]);
+  const [url, setUrl] = useState('');
   const [ repositories, setRepositories ] = useState([]);
 
   useEffect(()=>{
@@ -14,18 +17,18 @@ function App() {
     })
   },[])
 
-  async function handleAddRepository(title) {
-
-    console.log(title)
+  async function handleAddRepository(e) {
+    e.preventDefault();
     
     const response = await api.post('repositories', {
       title,
-      url: "https://github.com/chlima88/desafio-conceitos-node",
-      techs: ["NodeJS"]
+      url,
+      techs: techs || ["NodeJS"]
     })
 
     const repository = response.data
     setRepositories([...repositories, repository])
+    handleResetInput()
 
   }
 
@@ -38,7 +41,13 @@ function App() {
     repositories.splice(repositoryIndex, 1)
 
     setRepositories([...repositories])
+  }
 
+  
+  function handleResetInput(){
+    setTechs('')
+    setTitle('')
+    setUrl('')
   }
 
   return (
@@ -51,15 +60,39 @@ function App() {
               <li key={repository.id}>
                 <p>{repository.title}</p>
                 <button onClick={() => handleRemoveRepository(repository.id)}>
-                  Remover
+                  Remove
                 </button>
               </li>)
           })}
         </ul>
       </div>
       <div className="box">
-        <input id="repositoryTitle" type="text"/>
-        <button onClick={() => handleAddRepository(document.getElementById("repositoryTitle").value)}>Adicionar</button>
+        <form onSubmit={handleAddRepository}>
+          <div className="inputgroup">
+            <input 
+              placeholder='Repository Title'
+              type="text"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+            />
+            <input 
+              placeholder='Techs'
+              type="text"
+              value={techs}
+              onChange={e => setTechs(e.target.value)}
+            />
+          </div>
+          
+          <div className="inputgroup">
+          <input 
+            placeholder='URL'
+            type="text"
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+          />
+          <button type="submit">Add</button>
+          </div>
+        </form>
       </div>
     </div>
   );
