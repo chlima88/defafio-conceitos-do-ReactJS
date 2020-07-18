@@ -23,7 +23,7 @@ function App() {
     const response = await api.post('repositories', {
       title,
       url,
-      techs: techs || ["NodeJS"]
+      techs: [...techs] || ["NodeJS"]
     })
 
     const repository = response.data
@@ -45,7 +45,7 @@ function App() {
 
   
   function handleResetInput(){
-    setTechs('')
+    setTechs([])
     setTitle('')
     setUrl('')
   }
@@ -79,7 +79,7 @@ function App() {
               placeholder='Techs'
               type="text"
               value={techs}
-              onChange={e => setTechs(e.target.value)}
+              onChange={e => setTechs(e.target.value.split(/\s+|,/))}
             />
           </div>
           
